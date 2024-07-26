@@ -1,4 +1,4 @@
-# Code I like but is not correct
+#Edited the code to pass the 10,000 case but it still isn't good
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         points.sort(key=lambda x:x[0])
@@ -6,6 +6,12 @@ class Solution:
         for balloon in points:
             try:
                 hit = False
+                if balloon[0] > targets[-1][1]:
+                    targets.append(balloon)
+                    raise Exception("too far")
+                elif balloon[1] < targets[0][0]:
+                    targets.insert(0,balloon)
+                    raise Exception("too close")
                 for target in targets:
                     if balloon[0] in range(target[0],target[1]+1):
                         target[0] = balloon[0]
