@@ -25,4 +25,17 @@ class Solution:
             except:
                 pass
         return len(targets)
-            
+
+#Similar idea just much smarter, also range is slow. Use greater then and less thens
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        points.sort(key=lambda x:x[1])
+        count = 0
+        arrow = float('-inf')
+        for balloon in points:
+            if balloon[1] >= arrow >= balloon[0]:
+                continue
+            else:
+                count += 1
+                arrow = balloon[1]
+        return count
