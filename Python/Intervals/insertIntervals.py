@@ -1,36 +1,32 @@
-# Wtf even is this code. Doesn't work
+#The code still looks gross but it does work and is fast
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         if len(intervals) == 0:
             return [newInterval]
-        if newInterval[0] < intervals[0][0]:
-            finding_start = False
-            intervals[0][0] = newInterval[0]
-        else:
-            finding_start = True
-        start = 0
-        while finding_start:
-            if newInterval[0] in range(intervals[start][0],intervals[start][1]+1):
-                finding_start = False
-            else:
-                start += 1
-        if newInterval[1] > intervals[-1][1]:
-            intervals[start][1] = newInterval[1]
-            combining = False
-            intervals = intervals[:start+1]
-        else:
-            combining = True
-            end = start
-        while combining:
-            if newInterval[1] in range(intervals[end][0],intervals[end][1]+1):
-                intervals[start][1] = intervals[end][1]
-                combining = False
-            elif newInterval[1] < intervals[end][0]:
-                intervals[start][1] = newInterval[1]
+        if newInterval[0] > intervals[-1][1]:
+            intervals.append(newInterval)
+            return intervals
+        for i in range(len(intervals)):
+            if newInterval[0] < intervals[i][0]:
+                intervals.insert(i, newInterval)
                 break
-            if end > start:
-                intervals.pop(end)
-            else:
-                end += 1
+            elif newInterval[0] in range(intervals[i][0], intervals[i][1]+1):
+                break
+        start = i
+        for j in range(len(intervals)-1,start-1,-1):
+            if newInterval[1] > intervals[j][1]:
+                intervals[start][1] = newInterval[1]
+                try:
+                    del intervals[start+1:j+1]
+                except:
+                    pass
+                break
+            elif newInterval[1] in range(intervals[j][0],intervals[j][1]+1):
+                intervals[start][1] = intervals[j][1]
+                try:
+                    del intervals[start+1:j+1]
+                except:
+                    pass
+                break
         return intervals
     
