@@ -1,4 +1,4 @@
-# Lord save me for line 10
+# Nothing was on line 10 🤫
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
@@ -7,7 +7,7 @@ class Solution:
             if tokens[i] in operators.keys():
                 num2 = stack.pop()
                 num1 = stack.pop()
-                stack.append(int(str(operators[tokens[i]](num1,num2)).split(".")[0]))
+                stack.append(int(operators[tokens[i]](num1,num2)))
             else:
                 stack.append(int(tokens[i]))
         return stack[0]
