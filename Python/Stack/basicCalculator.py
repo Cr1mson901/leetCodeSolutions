@@ -14,27 +14,30 @@ class Solution:
                     j += 1
                 stack.append(int("".join(numbers[i:j])))
                 i = j
-                if len(op_stack) > 0 and op_stack[-1] != "(":
-                    stack.append(op_stack.pop())
                 continue
-            elif len(op_stack) == 0 or numbers[i] == "(":
+            elif numbers[i] == "(":
                 op_stack.append(numbers[i])
             elif numbers[i] == ")":
                 while op_stack[-1] != "(":
                     stack.append(op_stack.pop())
                 op_stack.pop()
             else:
+                while op_stack and (op_stack[-1] == "-" or op_stack[-1] == "+"):
+                    stack.append(op_stack.pop())
                 op_stack.append(numbers[i])
             i += 1
-        while len(op_stack) > 0:
+        while op_stack:
             stack.append(op_stack.pop())
+        if stack[0] == "-":
+            stack[1] *= -1
+            del stack[0]
         for i in range(len(stack)):
-            if stack[i] in operators.keys() and len(output) > 1:
+            if stack[i] in operators.keys():
                 num2 = output.pop()
                 num1 = output.pop()
                 output.append(int(operators[stack[i]](num1,num2)))
-            elif stack[i] == "-":
-                stack[i+1] *= -1
             else:
                 output.append(int(stack[i]))
         return output[-1]
+
+print(Solution.calculate(Solution, "1-(     -2)"))
