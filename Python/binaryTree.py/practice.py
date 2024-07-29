@@ -30,6 +30,7 @@ class Node:
     #     #     receipt.append(self.right.print())
     #     # return receipt
 
+#Left, Root, Right
 def inOrderPrint(r):
     if r is None:
         return
@@ -38,9 +39,24 @@ def inOrderPrint(r):
         print(r.data, end=" ")
         inOrderPrint(r.right)
 
-
-
+#Root, Left, Right
+def preOrderPrint(r):
+    if r is None:
+        return
+    else:
+        print(r.data, end=" ")
+        preOrderPrint(r.left)
+        preOrderPrint(r.right)
     
+#Root, Right, Left    
+def postOrderPrint(r):
+    if r is None:
+        return
+    else:
+        print(r.data, end=" ")
+        postOrderPrint(r.right)
+        postOrderPrint(r.left)
+
 
 root = Node('g')
 root.insert('c')
@@ -54,3 +70,7 @@ root.insert('h')
 root.insert('j')
 root.insert('k')
 inOrderPrint(root)
+print("\n")
+preOrderPrint(root)
+print('\n')
+postOrderPrint(root)
