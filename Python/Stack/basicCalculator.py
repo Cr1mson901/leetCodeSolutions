@@ -1,4 +1,4 @@
-# Closer but I despise double negatives
+#The most convuluted way to solve this but it works now so I am happy
 class Solution:
     def calculate(self, s: str) -> int:
         numbers = [x for x in s if x!=" "]
@@ -7,6 +7,15 @@ class Solution:
         stack = []
         output = [0]
         i = 0
+        #Checks for negative numbers
+        for n in range(len(numbers)):
+            if numbers[n] == '-':
+                try:
+                    if numbers[n-1] == '(':
+                        raise Exception('Negative')
+                except:
+                    numbers.insert(n,'0')
+        # Converts to Reverse Polish Notation
         while i < len(numbers):
             if numbers[i] not in operators:
                 j = i + 1
@@ -28,9 +37,7 @@ class Solution:
             i += 1
         while op_stack:
             stack.append(op_stack.pop())
-        if stack[0] == "-":
-            stack[1] *= -1
-            del stack[0]
+        #Calculates based on RPN
         for i in range(len(stack)):
             if stack[i] in operators.keys():
                 num2 = output.pop()
@@ -39,5 +46,3 @@ class Solution:
             else:
                 output.append(int(stack[i]))
         return output[-1]
-
-print(Solution.calculate(Solution, "1-(     -2)"))
