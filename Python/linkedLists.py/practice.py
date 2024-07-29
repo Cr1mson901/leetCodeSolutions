@@ -87,7 +87,15 @@ class LinkedList:
                 return
             itr = itr.next
         raise Exception('Value was not found in your linked list')
-
+    
+    def remove_value(self, data):
+        itr = self.head
+        while itr:
+            if itr.next.data == data:
+                itr.next = itr.next.next
+                return
+            itr = itr.next
+        raise Exception('Value was not found in your linked list')
 
 test = LinkedList()
 test.insert_at_beginning(8)
@@ -106,4 +114,5 @@ test.insert_at(1,7)
 test.insert_at(4,'Test')
 test.print()
 test.insert_after_value(65,90)
+test.remove_value(65)
 test.print()
