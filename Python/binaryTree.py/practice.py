@@ -1,3 +1,4 @@
+import collections
 # 1. Define a Tree
 class Node:
     def __init__(self, data):
@@ -57,19 +58,26 @@ def postOrderPrint(r):
         postOrderPrint(r.right)
         postOrderPrint(r.left)
 
-#Bredth First Search / What I came up with
-def bfs(r,queue=[],visited=[]):
-    if r is None:
-        return
-    else:
-        visited.append(queue.pop(0).data)
-        if r.left is not None:
-            queue.append(r.left)
-        if r.right is not None:
-            queue.append(r.right)
-        for item in queue:
-            bfs(item, queue, visited)
-        return visited
+#Bredth First Search using Adjacency List
+def bfs(al):
+    visited = []
+    queue = collections.deque('g')
+    while queue:
+        node = queue.popleft()
+        visited.append(node)
+        [queue.append(x) for x in al[node]]
+    print(visited)
+
+# #Bredth First Search / What I came up with
+# def bfs(r,queue=[],visited=[]):
+    # visited.append(queue.pop(0).data)
+    # if r.left is not None:
+    #     queue.append(r.left)
+    # if r.right is not None:
+    #     queue.append(r.right)
+    # for item in queue:
+    #     bfs(item, queue, visited)
+    # return visited
 
 #Adjacency List 
 def makeList(r):
@@ -104,10 +112,11 @@ preOrderPrint(root)
 print('\n')
 postOrderPrint(root)
 print('\n')
-print(bfs(root, [root]))
 
 d = {}
 
 alist = makeList(root)
 for item in alist.items():
     print(item)
+
+bfs(alist)
