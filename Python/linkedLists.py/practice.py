@@ -58,6 +58,7 @@ class LinkedList:
                     itr.next = itr.next.next
                     break
                 itr = itr.next
+                count += 1
  
 test = LinkedList()
 test.insert_at_beginning(8)
@@ -70,5 +71,5 @@ test.print()
 print(test.get_length())
 test.remove_at(0)
 test.print()
-test.remove_at(1)
+test.remove_at(2)
 test.print()
