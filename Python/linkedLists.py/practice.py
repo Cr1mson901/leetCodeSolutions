@@ -46,17 +46,18 @@ class LinkedList:
         return count
     
     def remove_at(self,idx):
-        if idx >= self.get_length():
+        if idx >= self.get_length() or idx < 0:
             raise Exception("Indexing Error")
         elif idx == 0:
             self.head = self.head.next
         else:    
             itr = self.head
-            for i in range(idx):
-                if i == idx-1:
-                    pre = itr
+            count = 0
+            while itr:
+                if count == idx - 1:
+                    itr.next = itr.next.next
+                    break
                 itr = itr.next
-            pre.next = itr.next
  
 test = LinkedList()
 test.insert_at_beginning(8)
