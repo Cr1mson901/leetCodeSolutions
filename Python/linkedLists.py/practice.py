@@ -18,7 +18,11 @@ class LinkedList:
             itr = self.head
             llstr = ''
             while itr:
-                llstr += str(itr.data) + "-->"
+                try:
+                    itr.data = str(itr.data)
+                except:
+                    pass
+                llstr += itr.data + "-->"
                 itr = itr.next
             print(llstr)
     
@@ -59,7 +63,23 @@ class LinkedList:
                     break
                 itr = itr.next
                 count += 1
- 
+    
+    def insert_at(self,idx,data):
+        if idx > self.get_length() or idx < 0:
+            raise Exception("Indexing Error")
+        elif idx == 0:
+            self.insert_at_beginning(data)
+        else:
+            itr = self.head
+            count = 0
+            while itr:
+                if count == idx - 1:
+                    itr.next = Node(data,itr.next)
+                    break
+                itr = itr.next
+                count += 1
+
+
 test = LinkedList()
 test.insert_at_beginning(8)
 test.insert_at_beginning(9)
@@ -72,4 +92,7 @@ print(test.get_length())
 test.remove_at(0)
 test.print()
 test.remove_at(2)
+test.print()
+test.insert_at(1,7)
+test.insert_at(4,'Test')
 test.print()
