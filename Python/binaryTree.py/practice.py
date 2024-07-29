@@ -57,6 +57,20 @@ def postOrderPrint(r):
         postOrderPrint(r.right)
         postOrderPrint(r.left)
 
+#Bredth First Search / What I came up with
+def bfs(r,queue=[],visited=[]):
+    if r is None:
+        return
+    else:
+        visited.append(queue.pop(0).data)
+        if r.left is not None:
+            queue.append(r.left)
+        if r.right is not None:
+            queue.append(r.right)
+        for item in queue:
+            bfs(item, queue, visited)
+        return visited
+    
 
 root = Node('g')
 root.insert('c')
@@ -74,3 +88,5 @@ print("\n")
 preOrderPrint(root)
 print('\n')
 postOrderPrint(root)
+print('\n')
+print(bfs(root, [root]))
