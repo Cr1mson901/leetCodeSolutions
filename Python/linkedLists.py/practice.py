@@ -21,8 +21,19 @@ class LinkedList:
                 llstr += str(itr.data) + "-->"
                 itr = itr.next
             print(llstr)
+    
+    def insert_at_end(self,data):
+        if not self.head:
+            self.head = Node(data)
+        else:
+            itr = self.head
+            while itr.next:
+                itr = itr.next
+            itr.next = Node(data)
 
 test = LinkedList()
 test.insert_at_beginning(8)
 test.insert_at_beginning(9)
+test.print()
+test.insert_at_end(89)
 test.print()
