@@ -19,10 +19,10 @@ class LinkedList:
             llstr = ''
             while itr:
                 try:
-                    itr.data = str(itr.data)
+                    temp = str(itr.data)
                 except:
                     pass
-                llstr += itr.data + "-->"
+                llstr += temp + "-->"
                 itr = itr.next
             print(llstr)
     
@@ -79,6 +79,15 @@ class LinkedList:
                 itr = itr.next
                 count += 1
 
+    def insert_after_value(self, data_after, data_insert):
+        itr = self.head
+        while itr:
+            if itr.data == data_after:
+                itr.next = Node(data_insert,itr.next)
+                return
+            itr = itr.next
+        raise Exception('Value was not found in your linked list')
+
 
 test = LinkedList()
 test.insert_at_beginning(8)
@@ -95,4 +104,6 @@ test.remove_at(2)
 test.print()
 test.insert_at(1,7)
 test.insert_at(4,'Test')
+test.print()
+test.insert_after_value(65,90)
 test.print()
