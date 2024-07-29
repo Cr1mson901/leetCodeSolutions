@@ -70,7 +70,22 @@ def bfs(r,queue=[],visited=[]):
         for item in queue:
             bfs(item, queue, visited)
         return visited
-    
+
+#Adjacency List 
+def makeList(r):
+    if r is None:
+        return
+    else:
+        d[r.data] = []
+        if r.left:
+            d[r.data].append(r.left.data)
+            makeList(r.left)
+        if r.right:
+            d[r.data].append(r.right.data)
+            makeList(r.right)
+    return d
+
+
 
 root = Node('g')
 root.insert('c')
@@ -90,3 +105,9 @@ print('\n')
 postOrderPrint(root)
 print('\n')
 print(bfs(root, [root]))
+
+d = {}
+
+alist = makeList(root)
+for item in alist.items():
+    print(item)
