@@ -79,6 +79,9 @@ def bfs(al):
     #     bfs(item, queue, visited)
     # return visited
 
+#The 3 print functions are versions of depth first search
+
+
 #Adjacency List 
 def makeList(r):
     if r is None:
