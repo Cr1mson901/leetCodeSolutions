@@ -1,4 +1,4 @@
-#Hoare Partition. Quick Sort
+#Hoare Partition. Quick Sort. First element is pivot
 import random
 test_list = []
 for i in range(30):
@@ -34,7 +34,36 @@ def sort(nums):
     nums[end+1:] = sort(nums[end+1:])
     return nums
 
+#------------------------------------------------------------------------------------------------
+#Lomuto Partition. Last elemenet is pivot
+def sort2(nums):
+    if len(nums) < 2:
+        return nums
+    pivot = nums[-1]
+    pIndex = 0
+    i = 0
+    while i < len(nums)-1:
+        try:
+            while nums[pIndex] <= pivot:
+                pIndex += 1
+                if pIndex == len(nums)-1:
+                    raise Exception("end")
+            i = pIndex
+            while nums[i] > pivot:
+                i += 1
+                if i == len(nums):
+                    raise Exception("end")
+            if i != len(nums):
+                swap = nums[i]
+                nums[i] = nums[pIndex]
+                nums[pIndex] = swap
+        except:
+            i = float('inf')
+    nums[:pIndex] = sort2(nums[:pIndex])
+    nums[pIndex+1:] = sort2(nums[pIndex+1:])
+    return nums
+
 
 
 print(test_list)
-print(sort(test_list))
+print(sort2(test_list))
