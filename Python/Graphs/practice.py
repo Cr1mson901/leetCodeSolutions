@@ -9,15 +9,19 @@ class Graph:
             self.graph_dict[start].append(end)
 
     def get_paths(self,start,end,path=[]):
-        path += [start]
+        # Do not use += or path will always be pointing to the same object
+        path = path + [start]
         if start == end:
             return [path]
         if start not in self.graph_dict.keys():
-            return
-        for destination in self.graph_dict[start]:
-            path += [self.get_paths(destination, end)]
-        return path
-        
+            return []
+        paths = []
+        for node in self.graph_dict[start]:
+            if node not in path:
+                new_paths = self.get_paths(node,end,path)
+                for p in new_paths:
+                    paths.append(p)
+        return paths
 
 if __name__ == "__main__":
     routes = [
@@ -32,6 +36,6 @@ if __name__ == "__main__":
     print(route_graph.graph_dict.items())
 
     start = "Mumbai"
-    end = "Toronto"
+    end = "Dubai"
 
     print(f"The paths between {start} and {end} are {route_graph.get_paths(start,end)}")
