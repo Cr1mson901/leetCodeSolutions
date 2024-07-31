@@ -32,3 +32,16 @@ class Solution:
         root.left = root.right
         root.right = swap
         return root
+    
+# Don't Think its actually faster to go down first, Also stop using if statments if you already have a check in your loop
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return
+        swap = root.left
+        root.left = root.right
+        root.right = swap
+        
+        self.invertTree(root.right)
+        self.invertTree(root.left) 
+        return root
